@@ -1,0 +1,41 @@
+.logo{
+    width: 5rem; 
+    height:5rem;
+}
+
+.caption{
+    margin: auto auto auto 3rem;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 4rem;
+    font-weight: 700;
+}
+
+.msg{
+    width: fit-content;
+    max-width: 100%;
+    margin: 0.25rem 0;
+    border: 1px black solid;
+    border-radius: 1rem;
+    padding: .75rem 1.5rem;
+    background-color: black;
+    color: azure;
+}
+
+.mymsg{
+    width: fit-content;
+    max-width: 100%;
+    margin: 0.25rem 0;
+    border: 1px black solid;
+    border-radius: 1rem;
+    padding: .75rem 1.5rem;
+    color: black;
+    justify-self: right;
+    text-align: right;
+}
+
+.content{
+    margin: 0;
+    padding: 0;
+    font-size: larger;
+    font-weight: bolder;
+}
