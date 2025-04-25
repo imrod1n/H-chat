@@ -2,10 +2,75 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>H-chat</title>
+    <title>WebSocket Messenger</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #chat {
+            width: 400px;
+            height: 300px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            overflow-y: scroll;
+            margin-bottom: 10px;
+        }
+        #message {
+            width: 300px;
+            padding: 5px;
+        }
+        #send {
+            padding: 5px 10px;
+        }
+    </style>
 </head>
 <body>
-    
+    <h1>WebSocket Messenger</h1>
+    <div id="chat"></div>
+    <input type="text" id="message" placeholder="Введите сообщение">
+    <button id="send">Отправить</button>
+
+    <script>
+        const chat = document.getElementById("chat");
+        const messageInput = document.getElementById("message");
+        const sendButton = document.getElementById("send");
+
+        // Подключение к WebSocket-серверу
+        const socket = new WebSocket("ws://localhost:8080");
+
+        // Обработка открытия соединения
+        socket.onopen = function() {
+            console.log("Соединение установлено");
+        };
+
+        // Обработка входящих сообщений
+        socket.onmessage = function(event) {
+            const message = document.createElement("div");
+            message.textContent = event.data;
+            chat.appendChild(message);
+            chat.scrollTop = chat.scrollHeight; // Прокрутка вниз
+        };
+
+        // Обработка закрытия соединения
+        socket.onclose = function(event) {
+            console.log("Соединение закрыто");
+        };
+
+        // Отправка сообщения
+        sendButton.onclick = function() {
+            const message = messageInput.value;
+            if (message) {
+                socket.send(message);
+                messageInput.value = ""; // Очистка поля ввода
+            }
+        };
+
+        // Отправка сообщения при нажатии Enter
+        messageInput.onkeypress = function(event) {
+            if (event.key === "Enter") {
+                sendButton.click();
+            }
+        };
+    </script>
 </body>
 </html>
